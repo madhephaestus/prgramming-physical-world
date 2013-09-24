@@ -1,3 +1,4 @@
+use <../../Vitamins/Actuators/StandardServo/StandardServo_Vitamins
 module centeredHole(	centerDistance=1,
 						anglefromstart=0,
 						holeDepth=5,
@@ -17,7 +18,7 @@ module centeredHole(	centerDistance=1,
 	
 module tester(input=2){
 	
-	StandardServo_Vitamin.scad
+	
 	//call the box
 	difference(){
 		translate([-25,-25,0]){
