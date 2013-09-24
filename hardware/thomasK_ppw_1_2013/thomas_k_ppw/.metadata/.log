@@ -1,0 +1,28 @@
+!SESSION 2013-09-24 13:41:20.682 -----------------------------------------------
+eclipse.buildId=4.3.0.I20130605-2000
+java.version=1.6.0_43
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=cocoa, NL=en_US
+Framework arguments:  -product org.eclipse.epp.package.java.product -keyring /Users/Student/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86 -product org.eclipse.epp.package.java.product -keyring /Users/Student/.eclipse_keyring -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2013-09-24 13:41:38.651
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.core.jobs 4 2 2013-09-24 13:41:47.115
+!MESSAGE An internal error occurred during: "Task List Indexer".
+!STACK 0
+java.nio.channels.OverlappingFileLockException
+	at sun.nio.ch.FileChannelImpl$SharedFileLockTable.checkList(FileChannelImpl.java:1166)
+	at sun.nio.ch.FileChannelImpl$SharedFileLockTable.add(FileChannelImpl.java:1068)
+	at sun.nio.ch.FileChannelImpl.tryLock(FileChannelImpl.java:868)
+	at java.nio.channels.FileChannel.tryLock(FileChannel.java:962)
+	at org.apache.lucene.store.NativeFSLock.obtain(NativeFSLockFactory.java:216)
+	at org.apache.lucene.store.Lock.obtain(Lock.java:72)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:1108)
+	at org.apache.lucene.index.IndexWriter.<init>(IndexWriter.java:936)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.rebuildIndexCompletely(TaskListIndex.java:1205)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.maintainIndex(TaskListIndex.java:1083)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex.access$0(TaskListIndex.java:1064)
+	at org.eclipse.mylyn.internal.tasks.index.core.TaskListIndex$MaintainIndexJob.run(TaskListIndex.java:170)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
