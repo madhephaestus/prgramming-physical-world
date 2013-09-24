@@ -1,4 +1,5 @@
-use <StandardServo_Vitamin.scad>
+
+use <../../../Vitamins/Actuators/StandardServo/StandardServo_Vitamin.scad>
 
 module centeredHole(	centerDistance=0,
 						angleFromStart=0,
