@@ -1,4 +1,5 @@
-use <StandardServo_Vitamin.scad>
+
+use <../../../Vitamins/Actuators/StandardServo/StandardServo_Vitamin.scad>
 
 module centeredHole(	centerDistance=1,
 						angleFromStart=0,
@@ -6,8 +7,8 @@ module centeredHole(	centerDistance=1,
 						holeWidth=5){
 	rotate([0,0,angleFromStart]){
 	translate([centerDistance,0,0]){
-	cylinder(	h=holeDepth,//Hole
-				r=Holewidth/2,
+	cylinder(	h=holeDepth,
+				r=holeWidth/2,
 				center=true);
 	}
 	}
