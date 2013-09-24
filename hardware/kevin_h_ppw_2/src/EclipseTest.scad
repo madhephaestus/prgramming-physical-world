@@ -1,4 +1,4 @@
-use <StandardServo_Vitamin .scad>
+use <../../Vitamins/Actuators/StandardServo/StandardServo_Vitamin.scad>
 
 module testModule(){
 	
