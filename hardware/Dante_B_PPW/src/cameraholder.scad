@@ -13,13 +13,11 @@ use<../../Vitamins/Structural/SealedBearings/SealedBearing608_Vitamin.scad>
 function getRadius()= getQuickCamRadius (.3) +10;
 function getThickness()	= 20;
 
-
-module cameraHolder(){
-	difference(){
+module cameraInterface(){difference(){
 		coreBar();
 		translate([0,
 		           0,
-		           getQuickCamRadius (.3) -10]){
+		           getQuickCamRadius (.3)]){
 		rotate([0,
 		        180,
 		        0]
@@ -29,18 +27,23 @@ module cameraHolder(){
 		}	
 	}
 }
+
+module cameraHolder(){
+	cameraInterface();
+}
+	
 	
 module coreBar(){
 	intersection(){
 
-	color("red")
+	color("pink")
 		sphere(getRadius());
 	
 	translate([-getRadius(),
 	           -getThickness()/2,
 	           0])
 	        		   
-	    color("red")
+	    color("White")
 			cube([	getRadius()*2,
 			      	getThickness(),
 			      	getRadius()]
