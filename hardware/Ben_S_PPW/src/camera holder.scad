@@ -14,13 +14,13 @@ function getRadius() = getQuickCamRadius(.3) + 10;
 
 function getThickness() = 20;
 
-module cameraHolder() {
+module cameraInterface() {
 	
 	difference() {
 
 		coreBar();
 		
-		translate([0,0,getRadius(.3)-10]) {
+		translate([0,0,getQuickCamRadius(.3)]) {
 		
 			rotate([0,180,0]) {
 			
@@ -29,6 +29,28 @@ module cameraHolder() {
 			}
 		}
 	}
+}
+
+module cameraHolder() {
+	
+	cameraInterface();
+	
+	translate([-getRadius(),0,0]) {
+		
+		rotate([0,90,0]) {
+			
+			endCap();
+		}
+	}
+	translate([getRadius(),0,0]) {
+				
+		rotate([0,90,0]) {
+					
+			endCap();
+			
+		}
+	}
+	
 }
 
 module coreBar() {
@@ -44,6 +66,12 @@ module coreBar() {
 		}
 		
 	}
+	
+}
+
+module endCap() {
+	
+	cylinder(h = 10,r = getThickness()/2,center=false);
 	
 }
 
