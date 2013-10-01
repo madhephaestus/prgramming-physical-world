@@ -1,5 +1,7 @@
 use <../../vitamins/actuators/standardservo/StandardServo_vitamin.scad>
-
+/*
+ * Author: Alexander
+ */
 module testModule(){
 	difference(){
 		translate([-StandardServoThickness()/2,0,0]){
