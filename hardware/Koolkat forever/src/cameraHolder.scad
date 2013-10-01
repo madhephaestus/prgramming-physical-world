@@ -24,7 +24,7 @@ module coreBar(){
 	}
 }
 
-module cameraHolder(){
+module cameraInterface(){
 	difference(){
 
 		coreBar();
@@ -34,7 +34,24 @@ module cameraHolder(){
 		}
 	}
 }
+module endCap(){
+	cylinder(h=10,
+			r=getThickness()/2,
+			center=false);
+}
 
+module cameraHolder(){
+	cameraInterface();
+	translate([getRadius()-10,0,0])
+	rotate([0,90,0])
+	#endCap();
+	
+	translate([-(getRadius()-10),0,0])
+	rotate([0,-90,0])
+	endCap();
+	
+}
+	
 //QuickCam();
 
 cameraHolder();
