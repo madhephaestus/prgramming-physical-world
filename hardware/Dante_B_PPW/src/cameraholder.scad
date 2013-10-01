@@ -22,14 +22,23 @@ module cameraInterface(){difference(){
 		        180,
 		        0]
 		        		){
-			#QuickCam();
+			QuickCam();
 			}
 		}	
 	}
 }
 
 module cameraHolder(){
+	
 	cameraInterface();
+	
+	translate([-(getRadius()-10),0,0])
+		rotate([0,-90,0])
+			endcap();
+	
+	translate([(getRadius()-10),0,0])
+		rotate([0,90,0])
+			endcap();
 }
 	
 	
@@ -52,5 +61,11 @@ module coreBar(){
 	
 }
 
+module endcap() {
+	cylinder(
+			h=10,
+			r=getThickness()/2,
+			center=false);
+}
 
 cameraHolder();
