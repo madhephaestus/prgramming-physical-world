@@ -50,13 +50,13 @@ module cameraHolder(){
 	
 	cameraInterface();
 	//end cap tranlations and rotations
-	translate([getRadius(),0,0]){
+	translate([(getRadius())-10,0,0]){
 		rotate([0,90,0]){
 			#endCap();
 		}
 	}
 	
-	translate([-getRadius(),0,0]){
+	translate([(-getRadius())+10,0,0]){
 		rotate([0,-90,0]){
 			endCap();
 		}
