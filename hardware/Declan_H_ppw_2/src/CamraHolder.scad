@@ -20,8 +20,7 @@ module coreBar(){
 	}
 }
 
-
-module cameraHolder(){
+module cameraInterface(){
 	difference(){
 		coreBar();
 		translate([0,0,getQuickCamRadius(.3)]){
@@ -32,4 +31,21 @@ module cameraHolder(){
 	}
 }
 
+module endcap(){
+	cylinder(h=10,r=getThickness()/2,center=false);
+}
+
+module cameraHolder(){
+	cameraInterface();
+	translate([(getRadius()-10),0,0]){
+		rotate([0,90,0]){
+			#endcap();
+		}
+	}
+	translate([-(getRadius()-10),0,0]){
+		rotate([0,-90,0]){
+			endcap();
+		}
+	}
+}
 cameraHolder();
