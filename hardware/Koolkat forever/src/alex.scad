@@ -1,4 +1,4 @@
-use <../../vitamins/actuators/standardservo/StandardServo_vitamin.scad>
+use <../../Vitamins/Actuators/StandardServo/StandardServo_Vitamin.scad>
 
 module testModule(){
 	difference(){
