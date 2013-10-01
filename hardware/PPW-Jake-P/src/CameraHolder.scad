@@ -27,14 +27,38 @@ module coreBar(){
 	}
 }
 
-module cameraHolder(){
-	//subtracting camera from core bar
+module cameraInterface(){
+	//subtract camera from core bar
 	difference(){
 		coreBar();
+		//rotate camera
 		rotate([0,180,0]){
+			//translate camera (in negative direction because Z-axis is flipped
 			translate([0,0,-getQuickCamRadius(.3)]){
 				QuickCam();
 			}
+		}
+	}
+}
+
+module endCap(){
+	//end cap for camera holder
+	cylinder(h=10,r=getThickness()/2,center=false);
+}
+
+module cameraHolder(){
+	
+	cameraInterface();
+	//end cap tranlations and rotations
+	translate([getRadius(),0,0]){
+		rotate([0,90,0]){
+			#endCap();
+		}
+	}
+	
+	translate([-getRadius(),0,0]){
+		rotate([0,-90,0]){
+			endCap();
 		}
 	}
 }
