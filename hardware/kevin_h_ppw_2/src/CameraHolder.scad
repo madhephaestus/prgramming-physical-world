@@ -31,13 +31,36 @@ module coreBar(){
 	}
 }
 
-module cameraHolder(){
+module cameraInterface(){
 	difference(){
 		coreBar();
 		translate([0,0,getQuickCamRadius(.3)]){
 			rotate([0,180,0]){
-				#QuickCam();
+				QuickCam();
 			}
+		}
+	}
+}
+
+module endCap(){
+	cylinder(	h=10,
+				r=getThickness()/2,
+				center=false);
+}
+
+module cameraHolder(){
+	
+	cameraInterface();
+	
+	translate([getRadius()-10 ,0,0]){
+		rotate([0,90,0]){
+			#endCap();
+		}
+	}
+	
+	translate([-(getRadius() -10),0,0]){
+		rotate([0,-90,0]){
+			endCap();
 		}
 	}
 }
