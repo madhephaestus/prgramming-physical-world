@@ -1,6 +1,6 @@
-use <../../../Education/PanTiltMechanism/CameraMount.scad>
-use <../../../Education/PanTiltMechanism/TiltRingHolder.scad>
-use <../../../Education/PanTiltMechanism/PanRingHolder.scad>
+use <../../../Education/Programming the Physical World/PanTiltMechanism/CameraMount.scad>
+use <../../../Education/Programming the Physical World/PanTiltMechanism/TiltRingHolder.scad>
+use <../../../Education/Programming the Physical World/PanTiltMechanism/PanRingHolder.scad>
 
 
 panRingHolder();
