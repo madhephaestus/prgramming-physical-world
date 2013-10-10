@@ -58,7 +58,7 @@ module coreBar(){
 			      	getRadius()]
 	      				);
 	}
-	
+	code.org;
 }
 
 module endcap() {
@@ -67,5 +67,5 @@ module endcap() {
 			r=getThickness()/2,
 			center=false);
 }
-
+endcap();
 cameraHolder();
