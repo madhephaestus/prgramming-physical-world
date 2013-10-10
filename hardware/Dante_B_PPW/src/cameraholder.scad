@@ -22,7 +22,7 @@ module cameraInterface(){difference(){
 		        180,
 		        0]
 		        		){
-			QuickCam();
+			#QuickCam();
 			}
 		}	
 	}
@@ -45,7 +45,7 @@ module cameraHolder(){
 module coreBar(){
 	intersection(){
 
-	color("pink")
+	color("red")
 		sphere(getRadius());
 	
 	translate([-getRadius(),
@@ -58,7 +58,7 @@ module coreBar(){
 			      	getRadius()]
 	      				);
 	}
-	
+	code.org;
 }
 
 module endcap() {
@@ -67,5 +67,5 @@ module endcap() {
 			r=getThickness()/2,
 			center=false);
 }
-
+endcap();
 cameraHolder();
