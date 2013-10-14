@@ -11,5 +11,6 @@ translate([getPanRingRadius()+5,0,0])
 		cameraTiltBar();
 
 translate([0,110,50]){
-	myBase();
+	myBaseWithHole();
 }
+
