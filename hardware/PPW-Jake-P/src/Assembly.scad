@@ -14,3 +14,6 @@ translate([0,110,50]){
 	myBaseWithHole();
 }
 
+translate([20,0,7]){
+import("/Users/Student/Downloads/Lego_8Block.stl");
+}
