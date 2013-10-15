@@ -1,7 +1,7 @@
 use <../../../Education/Programming the Physical World/PanTiltMechanism/CameraMount.scad>
 use <../../../Education/Programming the Physical World/PanTiltMechanism/TiltRingHolder.scad>
 use <../../../Education/Programming the Physical World/PanTiltMechanism/PanRingHolder.scad>
-use <MyBase.scad>
+use <EclipseAnalog.scad>
 
 panRingHolder();
 rotate([0,0,22])
@@ -10,10 +10,27 @@ translate([getPanRingRadius()+5,0,0])
 	rotate([0,0,90])
 		cameraTiltBar();
 
-translate([0,110,50]){
-	myBaseWithHole();
-}
 
-translate([20,0,7]){
-import("/Users/Student/Downloads/Lego_8Block.stl");
-}
+translate([0,20,0]){
+	customStick();
+}	
+
+translate([0,-20,0]){
+	customStick();
+}	
+
+
+translate([0,80,0]){
+	customStick();
+}	
+
+
+translate([0,-80,0]){
+	customStick();
+}	
+
+
+
+
+
+#cube([200,200,200],center=true);

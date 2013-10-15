@@ -5,7 +5,7 @@ import com.neuronrobotics.sdk.dyio.peripherals.DigitalOutputChannel;
 import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 
-public class HannahsMain {
+public class LucianMain {
 
 	public static void main(String[] args) {
 		DyIO.disableFWCheck();
@@ -14,18 +14,19 @@ public class HannahsMain {
 			System.exit(1);
 		}
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
+		
 		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		
 		// Blink the LED 5 times
 		for(int i = 0; i < 10; i++) {
-			System.out.println("Blinking.");
 			
 			boolean thisLoopIsOdd = (i % 2) == 1;
 			
 			if(thisLoopIsOdd){
-				System.out.println("This loop is odd "+i);
+				System.out.println("This loop is odd");
 				srv.SetPosition(200, 1);
 			}else{
-				System.out.println("This loop is even "+i);
+				System.out.println("This loop is even");
 				srv.SetPosition(50, 1);
 			}
 			
@@ -42,7 +43,8 @@ public class HannahsMain {
 				e.printStackTrace();
 			}
 		}
-		System.exit(0);
-	}
-}
+           System.exit(0);
+		
+	}  
 
+}
