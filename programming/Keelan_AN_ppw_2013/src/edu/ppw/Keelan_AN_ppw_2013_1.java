@@ -1,10 +1,11 @@
+package edu.ppw;
 import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 import com.neuronrobotics.sdk.util.ThreadUtil;
 // this is the webpage's that have the information to allow the variables to work.
 
-public class Alexander_Spurrell_ppw_2013_1 {
+public class Keelan_AN_ppw_2013_1 {
 
 	public static void main(String[] args) {
 		System.out.println("helloWorld");  //prints helloWorld onto the web. can be made by typing syso and then ctrl space.
