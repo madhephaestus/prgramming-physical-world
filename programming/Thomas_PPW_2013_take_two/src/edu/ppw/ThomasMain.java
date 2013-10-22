@@ -1,12 +1,10 @@
 package edu.ppw;
-
 import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.dyio.peripherals.DigitalOutputChannel;
 import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
-
+import com.neuronrobotics.sdk.util.ThreadUtil;
 public class ThomasMain {
-
 	public static void main(String[] args) {
 		DyIO.disableFWCheck();
 		DyIO dyio=new DyIO();
@@ -14,34 +12,35 @@ public class ThomasMain {
 			System.exit(1);
 		}
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
-		
 		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		long longest	= 0;
+		long shortest	= 1000;
 		// Blink the LED 5 times
-		for(int i = 0; i < 10; i++) {
+		for(int i = 0; i < 20; i++) {
 			System.out.println("Blinking.");
-			
 			boolean thisLoopIsOdd = i % 2 == 1;
-			
+			long timestamp = System.currentTimeMillis();
 			if(thisLoopIsOdd){
-				System.out.println("This Loop is odd "+i);
-				srv.SetPosition(200, 1);
-			}else{
-				System.out.println("This loop is even "+i);
-				srv.SetPosition(50, 1);
+				//System.out.println("This Loop is odd "+i);
+				srv.SetPosition(200, 0);
+							}else{
+				//System.out.println("This loop is even "+i);
+				srv.SetPosition(50, 0);
 			}
-			
 			// Set the value high every other time, exit if unsuccessful
 			if(!doc.setHigh(i % 2 == 1)) {
 				System.err.println("Could not connect to the device.");
 				System.exit(0);
 			}
 			// pause between cycles so that the changes are visible
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ThreadUtil.wait(1500);
+			long timepassed = System.currentTimeMillis()-timestamp;
+			
+			if(timepassed>longest)
+				longest=timepassed;
+			if(timepassed<shortest)
+				shortest=timepassed;
+			System.out.println("Time for command to run: "+timepassed/150+" longest: "+longest/150+" shortest: "+shortest/150+"");
 		}
            System.exit(0);
 	}
