@@ -1,6 +1,7 @@
 package edu.ppw;
 
 import com.neuronrobotics.sdk.dyio.DyIO;
+import com.neuronrobotics.sdk.dyio.peripherals.DigitalOutputChannel;
 import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 import com.neuronrobotics.sdk.util.ThreadUtil;
@@ -27,15 +28,38 @@ public class BenMain {
 		
 
 		
-		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		ServoWrapper wrapper = new ServoWrapper(new ServoChannel (dyio.getChannel(11)));
 		
-		for ( int i = 0 ; i < 10 ; i++ ){
-			System.out.println("Curent Value Of i = "+i);
-			srv.SetPosition(i*20, 1);
-			ThreadUtil.wait(6000);
+		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
+		
+		long startTime;
+		
+		
+		for ( int i = 0 ; i < 100 ; i++ ){
+			
+			startTime = System.currentTimeMillis();
+			
+			boolean isThisLoopEven = (i % 2) == 0;
+			
+			if(isThisLoopEven) {
+				//System.out.println("This loop is even" +i);
+				//srv.SetPosition(200, 0);
+				wrapper.setPosition(200,500);
+				doc.setHigh(isThisLoopEven);
+			}else{
+				//System.out.println("This loop is odd" +i);
+				//srv.SetPosition(50, 0);
+				wrapper.setPosition(50,500);
+				doc.setHigh(isThisLoopEven);
+			}
+			//ThreadUtil.wait(250);
+			System.out.println("This line took" + (System.currentTimeMillis() - startTime)/150 + " ms" );
+
 		}
 		
 		dyio.disconnect();
+		System.exit(0);
 	}
 
 }

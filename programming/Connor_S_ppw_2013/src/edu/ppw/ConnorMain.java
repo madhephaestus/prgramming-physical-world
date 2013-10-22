@@ -1,6 +1,7 @@
 package edu.ppw;
 
 import com.neuronrobotics.sdk.dyio.DyIO;
+import com.neuronrobotics.sdk.dyio.peripherals.DigitalOutputChannel;
 import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 import com.neuronrobotics.sdk.util.ThreadUtil;
@@ -12,7 +13,11 @@ public class ConnorMain {
 		System.out.println("Something Else");
 	
 		for(int i=3	;i < 10	;i++	) {
+			
+			
 			System.out.println("Current value of i = "+i);
+	
+		
 		}
 		DyIO.disableFWCheck();
 		DyIO dyio=new DyIO();
@@ -29,15 +34,28 @@ public class ConnorMain {
 		
 		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
 		
+		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0)); 
 	
-		
-		for(int i=0	;i < 10	;i++	) {
-			srv.SetPosition(i*20, 1 ) ;
+		long startTime = System.currentTimeMillis() ;
+		for(int i=0	;i < 100	;i++	) {
+			startTime = System.currentTimeMillis() ;
+			boolean isThisLoopEven = (i % 2) == 0;
 			
-			ThreadUtil.wait(6000);
+			if(isThisLoopEven) {
+				//System.out.println("this loop is even");
+				srv.SetPosition(200, 0 ) ;
+				doc.setHigh(isThisLoopEven);
+			}else{//System.out.println("this loop is odd");
+			srv.SetPosition(50, 0 ) ;
+			doc.setHigh(isThisLoopEven);
+			}
+			
+			
+			System.out.println("THis loop took" +(startTime = System.currentTimeMillis()-startTime)+" ms" );
+			//ThreadUtil.wait(6000);
 		}
 			dyio.disconnect();
-		
+			System.exit(0);
 		}
 		
 }
