@@ -14,17 +14,22 @@ public class PeterMain {
 		}
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
 		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		long longest	= 0;
+		long shortest   = 1000;
 		// Blink the LED 5 times
-		for(int i = 0; i < 10; i++) {
-			System.out.println("Blinking.");
+		for(int i = 0; i < 20; i++) {
+			//System.out.println("Blinking.");
+			long timestamp = System.currentTimeMillis();
 			
 			boolean thisLoopIsOdd = (i % 2) == 1;
 			if(thisLoopIsOdd){
-				System.out.println("this loop is odd"+i);
-				srv.SetPosition(200, 1);
+				//System.out.println("this loop is odd"+i);
+				srv.SetPosition(200, 0);
+				
+				//System.out.println("Time for command to run: "+timepassed);
 			}else{
-				System.out.println("This line is even"+i);
-				srv.SetPosition(50, 1);
+				//System.out.println("This line is even"+i);
+				srv.SetPosition(50, 0);
 			}
 			// Set the value high every other time, exit if unsuccessful
 			if(!doc.setHigh(i % 2 == 1)) {
@@ -33,11 +38,19 @@ public class PeterMain {
 			}
 			// pause between cycles so that the changes are visible
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(650);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			long timepassed = System.currentTimeMillis() - timestamp;
+			
+			if (timepassed>longest)
+				longest=timepassed;
+			if(timepassed<shortest)
+				shortest=timepassed;
+			
+			System.out.println("Time for command to run: "+timepassed/150+" longest: "+longest+" shortest: "+shortest);
 		}
            System.exit(0);
 	}

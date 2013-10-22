@@ -4,6 +4,7 @@ import com.neuronrobotics.sdk.dyio.DyIO;
 import com.neuronrobotics.sdk.dyio.peripherals.DigitalOutputChannel;
 import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
+import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class HannahsMain {
 
@@ -15,18 +16,24 @@ public class HannahsMain {
 		}
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
 		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		long longest	= 0;
+		long shortest	= 1000;
 		// Blink the LED 5 times
-		for(int i = 0; i < 10; i++) {
-			System.out.println("Blinking.");
+		for(int i = 0; i < 20; i++) {
 			
+			long timestamp = System.currentTimeMillis();
 			boolean thisLoopIsOdd = (i % 2) == 1;
 			
+			
 			if(thisLoopIsOdd){
-				System.out.println("This loop is odd "+i);
-				srv.SetPosition(200, 1);
+				//System.out.println("This loop is odd "+i);
+				
+				srv.SetPosition(200, 0);
+			
+			
 			}else{
-				System.out.println("This loop is even "+i);
-				srv.SetPosition(50, 1);
+				//System.out.println("This loop is even "+i);
+				srv.SetPosition(50, 0);
 			}
 			
 			// Set the value high every other time, exit if unsuccessful
@@ -35,14 +42,19 @@ public class HannahsMain {
 				System.exit(0);
 			}
 			// pause between cycles so that the changes are visible
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			ThreadUtil.wait(250);
+			
+			long timePassed = System.currentTimeMillis()-timestamp;
+			
+			if(timePassed>longest)
+				longest=timePassed;
+			if(timePassed<shortest)
+				shortest=timePassed;
+			
+			System.out.println("Time for command to run: "+timePassed/150+" longest: "+longest+"  shortest: "+shortest);
 		}
-		System.exit(0);
+			System.exit(0);
 	}
+
 }
 
