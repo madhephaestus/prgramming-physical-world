@@ -1,6 +1,7 @@
 package edu.ppw;
 
 import com.neuronrobotics.sdk.dyio.DyIO;
+import com.neuronrobotics.sdk.dyio.peripherals.DigitalOutputChannel;
 import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
 import com.neuronrobotics.sdk.ui.ConnectionDialog;
 import com.neuronrobotics.sdk.util.ThreadUtil;
@@ -32,14 +33,33 @@ public class KevinMain {
 		
 		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
 		
-		for (int i=3	; i < 10	;i++	){
+		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
+		
+		long startTime;
+		
+		
+		for (int i=0	; i < 100	;i++	){
 			
-			srv.SetPosition(i*20, 1);
+			startTime = System.currentTimeMillis();
 			
-			ThreadUtil.wait(6000);
+			boolean isThisLoopEven = (i % 2) == 0;
+			
+			if(isThisLoopEven){
+				//System.out.println("This loop is even " +i);
+				srv.SetPosition(200, 0);
+				doc.setHigh(isThisLoopEven);
+			}else{
+				//System.out.println("This loop is odd " +i);
+				srv.SetPosition(50, 0);
+				doc.setHigh(isThisLoopEven);
+			}
+			
+			System.out.println("This loop took " +(System.currentTimeMillis()-startTime)+" ms");
+			//ThreadUtil.wait(6000);
 		}
 		
 		dyio.disconnect();
+		System.exit(0);
 	}
 
 }

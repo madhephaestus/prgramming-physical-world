@@ -1,17 +1,53 @@
 package edu.ppw;
-
+import com.neuronrobotics.sdk.dyio.DyIO;
+import com.neuronrobotics.sdk.dyio.peripherals.DigitalOutputChannel;
+import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
+import com.neuronrobotics.sdk.ui.ConnectionDialog;
+import com.neuronrobotics.sdk.util.ThreadUtil;
 public class KevinsMain {
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
-		System.out.println("Second print");
+		DyIO.disableFWCheck();
 		
-		for(int i=0; i < 10; i++){
-			System.out.println("Current i = "+i);
+		DyIO dyio=new DyIO();
+		if (!ConnectionDialog.getBowlerDevice(dyio)){
+			System.exit(1);
 		}
+		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
+		
+		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		long longest 	= 0;
+		long shortest 	= 1000;
+		// Blink the LED 5 times
+		for(int i = 0; i < 20; i++) {
+			long timestamp = System.currentTimeMillis();
+			
+			boolean thisLoopIsOdd = (i % 2) == 1;
+			if(thisLoopIsOdd){
+				srv.SetPosition(200, 0);				
+			}else{
+				srv.SetPosition(50, 0);
+			}
+			// Set the value high every other time, exit if unsuccessful
+			if(!doc.setHigh(i % 2 == 1)) {
+				System.err.println("Could not connect to the device.");
+				System.exit(0);
+			}
+			// pause between cycles so that the changes are visible
+			ThreadUtil.wait(300);
+			
+			long timePassed = System.currentTimeMillis()-timestamp;
+			
+			if(timePassed>longest)
+				longest=timePassed;
+			if(timePassed<shortest)
+				shortest=timePassed;
+			System.out.println("Time for command to run: "+timePassed/150+" longest: "+longest/150+" shortest: "+shortest/150);
+		}
+           System.exit(0);
 		
 	}
 
