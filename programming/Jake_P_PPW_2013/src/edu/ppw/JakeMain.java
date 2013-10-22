@@ -24,8 +24,7 @@ public class JakeMain {
 		
 
 		
-		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
-		ServoWrapper wrapper = new ServoWrapper(new ServoChannel (dyio.getChannel(11)));
+		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
 		
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
 		
@@ -38,18 +37,17 @@ public class JakeMain {
 			boolean isThisLoopEven = (i % 2) == 0;
 			
 			if(isThisLoopEven){
-				//srv.SetPosition(200, 0);
-				wrapper.setPosition(200,301);
+				//System.out.println("This loop is even " +i);
+				srv.SetPosition(200, 0);
 				doc.setHigh(isThisLoopEven);
 			}else{
-				//srv.SetPosition(50, 0);
-				wrapper.setPosition(50,301);
+				//System.out.println("This loop is odd " +i);
+				srv.SetPosition(50, 0);
 				doc.setHigh(isThisLoopEven);
 			}
 			
-			
-			//ThreadUtil.wait(255);
-			System.out.println("This loop took " + (System.currentTimeMillis()-startTime)/150+" ms");
+			System.out.println("This loop took " + (System.currentTimeMillis()-startTime)+" ms");
+			//ThreadUtil.wait(6000);
 		}
 		
 		dyio.disconnect();
