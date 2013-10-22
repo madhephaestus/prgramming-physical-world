@@ -28,7 +28,8 @@ public class BenMain {
 		
 
 		
-		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		ServoWrapper wrapper = new ServoWrapper(new ServoChannel (dyio.getChannel(11)));
 		
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
 		
@@ -43,15 +44,18 @@ public class BenMain {
 			
 			if(isThisLoopEven) {
 				//System.out.println("This loop is even" +i);
-				srv.SetPosition(200, 0);
+				//srv.SetPosition(200, 0);
+				wrapper.setPosition(200,500);
 				doc.setHigh(isThisLoopEven);
 			}else{
 				//System.out.println("This loop is odd" +i);
-				srv.SetPosition(50, 0);
+				//srv.SetPosition(50, 0);
+				wrapper.setPosition(50,500);
 				doc.setHigh(isThisLoopEven);
 			}
-			System.out.println("This line took" + (System.currentTimeMillis() - startTime) + " ms" );
-			//ThreadUtil.wait(6000);
+			//ThreadUtil.wait(250);
+			System.out.println("This line took" + (System.currentTimeMillis() - startTime)/150 + " ms" );
+
 		}
 		
 		dyio.disconnect();
