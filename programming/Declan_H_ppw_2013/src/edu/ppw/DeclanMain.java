@@ -31,10 +31,11 @@ public class DeclanMain {
 
 		
 		
-		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		ServoWrapper wrapper = new ServoWrapper(new ServoChannel(dyio.getChannel(11)));
 		
 		
-		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(1));
+		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
 		
 		long startTime = System.currentTimeMillis();
 		for (int i=0	; i < 100	;i++	){
@@ -45,19 +46,23 @@ public class DeclanMain {
 			
 			if(isThisLoopEven){
 			//System.out.println("This Loop is even " +i);
-			srv.SetPosition(200, 0);
+			//srv.SetPosition(200, 0);
+			wrapper.setPosition(200,301);
 			doc.setHigh(isThisLoopEven);
 		
 			}else{
 				//System.out.println("This Loop is odd " +i);
-				srv.SetPosition(50, 0);
+				//srv.SetPosition(50, 0);
+				wrapper.setPosition(50,301);
 				doc.setHigh(isThisLoopEven);
 				
 			}
 			
-			System.out.println("This loop took " +(System.currentTimeMillis()-startTime)+" ms");
-			//ThreadUtil.wait(6000);
+			
+			//ThreadUtil.wait(211);
+			System.out.println("This loop took " +(System.currentTimeMillis()-startTime)/150+" ms");
 		}
+		
 		
 		dyio.disconnect();
 		System.exit(0);
