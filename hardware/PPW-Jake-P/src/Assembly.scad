@@ -15,5 +15,5 @@ translate([0,110,50]){
 }
 
 translate([20,0,7]){
-import("prgramming-physical-world/Working Directory/hardware/PPw-Jake-P/src/Lego_8Block.stl");
+import("Lego_8Block.stl");
 }
