@@ -18,7 +18,17 @@ public class KevinsMain {
 		}
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
 		
-		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		
+		
+		ServoEncapsulation myEncapsulation = 
+				
+				new ServoEncapsulation(new ServoChannel (dyio.getChannel(11)), 6);
+		
+		ServoEncapsulation myEncapsulation2 = 
+				
+				new ServoEncapsulation(new ServoChannel (dyio.getChannel(12)), 6);
+		
 		long longest 	= 0;
 		long shortest 	= 1000;
 		// Blink the LED 5 times
@@ -27,17 +37,20 @@ public class KevinsMain {
 			
 			boolean thisLoopIsOdd = (i % 2) == 1;
 			if(thisLoopIsOdd){
-				srv.SetPosition(200, 0);				
+				//srv.SetPosition(200, 0);	
+				
+				myEncapsulation.setPositionTimed(200, 2000);
+				myEncapsulation2.setPositionTimed(200, 2000);
 			}else{
-				srv.SetPosition(50, 0);
+				//srv.SetPosition(50, 0);
+				myEncapsulation2.setPositionTimed(50, 0);
+				myEncapsulation.setPositionTimed(50, 0);
 			}
 			// Set the value high every other time, exit if unsuccessful
 			if(!doc.setHigh(i % 2 == 1)) {
 				System.err.println("Could not connect to the device.");
 				System.exit(0);
 			}
-			// pause between cycles so that the changes are visible
-			ThreadUtil.wait(300);
 			
 			long timePassed = System.currentTimeMillis()-timestamp;
 			
