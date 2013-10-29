@@ -9,27 +9,35 @@ import com.neuronrobotics.sdk.util.ThreadUtil;
 public class BenMain {
 
 	public static void main(String[] args) {
+		
 		System.out.println("Hello World!");
+		
 		System.out.println("There is a thing!");
 		
 		for ( int i = 3 ; i < 10 ; i++ ){
+			
 			System.out.println("Curent Value Of i = "+i);
 			
 		}
 		DyIO.disableFWCheck();
+		
 		DyIO dyio=new DyIO();
+		
 		dyio.enableDebug();
+		
 		if (!ConnectionDialog.getBowlerDevice(dyio)){
+			
 			System.exit(1);
 		}
 		
 		//If your DyIO is using a lower voltage power source, you need to disable the brownout detect
 		dyio.setServoPowerSafeMode(false);
 		
-
-		
 		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
 		ServoWrapper wrapper = new ServoWrapper(new ServoChannel (dyio.getChannel(11)));
+		
+		ServoWrapper wrapper2 = new ServoWrapper(new ServoChannel (dyio.getChannel(12)));
+
 		
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
 		
@@ -42,24 +50,40 @@ public class BenMain {
 			
 			boolean isThisLoopEven = (i % 2) == 0;
 			
+			EventManager manager = new EventManager();
+			
 			if(isThisLoopEven) {
 				//System.out.println("This loop is even" +i);
 				//srv.SetPosition(200, 0);
-				wrapper.setPosition(200,500);
+				wrapper.setPosition(200,2000, manager);
+				wrapper2.setPosition(200, 2000, manager);
 				doc.setHigh(isThisLoopEven);
 			}else{
 				//System.out.println("This loop is odd" +i);
 				//srv.SetPosition(50, 0);
-				wrapper.setPosition(50,500);
+				wrapper.setPosition(50,301, manager);
+				wrapper2.setPosition(50, 301, manager);
 				doc.setHigh(isThisLoopEven);
 			}
-			//ThreadUtil.wait(250);
-			System.out.println("This line took" + (System.currentTimeMillis() - startTime)/150 + " ms" );
+			
+			System.out.print("\r\nWaiting.");
+			
+			while(! manager.hasCompletedCycle()){
+				
+				ThreadUtil.wait(100);
+				
+				System.out.print(".");
+				
+			}
+			
+			System.out.println("This line took" + (System.currentTimeMillis() - startTime)/150/2 + " ms" );
 
 		}
 		
 		dyio.disconnect();
+		
 		System.exit(0);
+		
 	}
 
 }
