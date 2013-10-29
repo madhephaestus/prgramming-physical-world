@@ -21,7 +21,11 @@ public class LucianMain {
 		
 		ServoEncapsulation myEncapsulation = 
 				
-				new ServoEncapsulation(new ServoChannel (dyio.getChannel(11)), 10);
+				new ServoEncapsulation(new ServoChannel (dyio.getChannel(11)), 6);
+		
+		ServoEncapsulation myEncapsulation2 = 
+				
+				new ServoEncapsulation(new ServoChannel (dyio.getChannel(12)), 6);
 		
 		
 		
@@ -42,9 +46,11 @@ public class LucianMain {
 				if(timePassed<shortest)
 					shortest=timePassed;
 				System.out.println("Time for command to run: "+timePassed+" longest: "+longest+" shortest: "+shortest);
+				myEncapsulation2.setPositionTimed(200, 2000);
 				myEncapsulation.setPositionTimed(200, 2000);
 			}else{
 				
+				myEncapsulation2.setPositionTimed(50, 0);
 				myEncapsulation.setPositionTimed(50, 0);
 //				System.out.println("This loop is even");
 				//srv.SetPosition(50, 0);
