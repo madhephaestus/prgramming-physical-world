@@ -16,7 +16,7 @@ public class PeterMain {
 		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
 		
 		ServoEncapsullation myEncapsulation= new ServoEncapsullation(new ServoChannel (dyio.getChannel(11)), 10);
-		
+		ServoEncapsullation myEncapsulation2= new ServoEncapsullation(new ServoChannel (dyio.getChannel(12)), 10);
 		
 		long longest	= 0;
 		long shortest   = 1000;
@@ -33,11 +33,13 @@ public class PeterMain {
 				//System.out.println("Time for command to run: "+timepassed);
 				
 				myEncapsulation.setPositionTimed(200, 2000);
+				myEncapsulation2.setPositionTimed(200, 2000);
 			}else{
 				//System.out.println("This line is even"+i);
 				//srv.SetPosition(50, 0);
 				
 				myEncapsulation.setPositionTimed(5, 0);
+				myEncapsulation2.setPositionTimed(5, 0);
 			}
 			// Set the value high every other time, exit if unsuccessful
 			if(!doc.setHigh(i % 2 == 1)) {
