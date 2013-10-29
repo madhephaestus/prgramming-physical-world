@@ -32,7 +32,8 @@ public class ConnorMain {
 		
 
 		
-		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		ServoWrapper wrapper = new ServoWrapper(new ServoChannel (dyio.getChannel(11)));
 		
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0)); 
 	
@@ -43,16 +44,22 @@ public class ConnorMain {
 			
 			if(isThisLoopEven) {
 				//System.out.println("this loop is even");
-				srv.SetPosition(200, 0 ) ;
+				
+				//srv.SetPosition(200, 0 ) ;
+				
+				wrapper.setPosition (200,500);
+				
 				doc.setHigh(isThisLoopEven);
 			}else{//System.out.println("this loop is odd");
-			srv.SetPosition(50, 0 ) ;
-			doc.setHigh(isThisLoopEven);
+			//srv.SetPosition(50, 0 ) ;
+				wrapper.setPosition (50, 500);
+				doc.setHigh(isThisLoopEven);
 			}
 			
 			
-			System.out.println("THis loop took" +(startTime = System.currentTimeMillis()-startTime)+" ms" );
-			//ThreadUtil.wait(6000);
+			//ThreadUtil.wait(250);
+			System.out.println("THis loop took" +(startTime = System.currentTimeMillis()-startTime)/150+" ms" );
+		
 		}
 			dyio.disconnect();
 			System.exit(0);
