@@ -35,6 +35,10 @@ public class ConnorMain {
 		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
 		ServoWrapper wrapper = new ServoWrapper(new ServoChannel (dyio.getChannel(11)));
 		
+		ServoWrapper wrapper2 = new ServoWrapper(new ServoChannel (dyio.getChannel(12)));
+		
+
+		
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0)); 
 	
 		long startTime = System.currentTimeMillis() ;
@@ -42,23 +46,33 @@ public class ConnorMain {
 			startTime = System.currentTimeMillis() ;
 			boolean isThisLoopEven = (i % 2) == 0;
 			
+			EventManager manager = new EventManager();
+			
 			if(isThisLoopEven) {
 				//System.out.println("this loop is even");
 				
 				//srv.SetPosition(200, 0 ) ;
 				
-				wrapper.setPosition (200,500);
-				
+				wrapper.setPosition (200,2000,manager);
+				wrapper2.setPosition (200, 2000,manager);
 				doc.setHigh(isThisLoopEven);
 			}else{//System.out.println("this loop is odd");
 			//srv.SetPosition(50, 0 ) ;
-				wrapper.setPosition (50, 500);
+				wrapper.setPosition (50, 0,manager);
+				wrapper2.setPosition (50, 0,manager);
 				doc.setHigh(isThisLoopEven);
 			}
 			
+			System.out.println("\r\nWaiting");
+			while(! manager.hasCompletedCycle()){
+				ThreadUtil.wait(10);
+				System.out.print(".");
+				
+			}
 			
-			//ThreadUtil.wait(250);
-			System.out.println("THis loop took" +(startTime = System.currentTimeMillis()-startTime)/150+" ms" );
+	
+			
+			System.out.println("THis loop took" +(startTime = System.currentTimeMillis()-startTime)/150/2+" ms" );
 		
 		}
 			dyio.disconnect();
