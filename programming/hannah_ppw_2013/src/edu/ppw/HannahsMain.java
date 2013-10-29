@@ -21,6 +21,9 @@ public class HannahsMain {
 			
 			new ServoEncapsulation(new ServoChannel (dyio.getChannel(11)), 4);
 		
+		ServoEncapsulation myEncapsulation2 =
+				
+				new ServoEncapsulation(new ServoChannel (dyio.getChannel(12)), 4);
 		
 		
 		long longest = 0;
@@ -33,8 +36,10 @@ public class HannahsMain {
 				//srv.SetPosition(200, 0);
 				
 				myEncapsulation.setPositionTimed(200,  2000);
+				myEncapsulation2.setPositionTimed(200,  2000);
 			}else{
 				//System.out.println("This loop is odd "+i);
+				myEncapsulation2.setPositionTimed(50, 0);
 				myEncapsulation.setPositionTimed(50, 0);
 				//srv.SetPosition(50, 0);
 			}
