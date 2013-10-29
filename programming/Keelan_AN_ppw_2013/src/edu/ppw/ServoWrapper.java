@@ -1,43 +1,62 @@
-package edu.ppw;
+package edu.ppw ;
 
-import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel;
+import com.neuronrobotics.sdk.dyio.peripherals.ServoChannel ;
 import com.neuronrobotics.sdk.util.ThreadUtil;
 
 public class ServoWrapper
 {
 	
-	int milliseconds = 5;
+	int milliseconds = 2 ;
 	
-	private ServoChannel myChannel;
-
+	private ServoChannel myChannel ;
+	private int positionDifference ;
 	public ServoWrapper(ServoChannel myChannel)
 	{
-		
-		this.myChannel = myChannel;
+		this.myChannel = myChannel ;
 		
 	}
 	
-	public void setPosition(int position, int time)
+	public void setPosition(int position, int time, final EventManager event)
 	{
 		
 		int start = myChannel.getValue() ;
 		
-		int positionDifference = Math.abs(start - position) * milliseconds ;
+		positionDifference = Math.abs(start - position) * milliseconds ;
 		
 		myChannel.SetPosition(position, ((double)time) / 1000.0 ) ;
 		
-		if( time > positionDifference)
+		if( time  > positionDifference)
 		{
-		
-			positionDifference = time ;
 			
+			positionDifference=time ;
+		
 		}else{
 			
 			System.err.println("I can not move that fast! Needs at least " + positionDifference + " ms" ) ;
 			
 		}
-		
-		ThreadUtil.wait(positionDifference) ;
+			
+		if (event == null)
+		{
+				
+			ThreadUtil.wait(time) ;
+			
+		}else{
+				
+			new Thread()
+			{
+					
+				public void run()
+				{
+					
+					ThreadUtil.wait(positionDifference) ;
+					event.onCompletion(myChannel) ;
+				
+				}
+					
+			}.start() ;
+				
+		}
 		
 	}
 	
