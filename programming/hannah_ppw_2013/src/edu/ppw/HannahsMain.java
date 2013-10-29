@@ -21,6 +21,10 @@ public class HannahsMain {
 				
 				new ServoEncapsulation(new ServoChannel (dyio.getChannel(11)), 10);
 		
+ServoEncapsulation myEncapsulation2 = 
+				
+				new ServoEncapsulation(new ServoChannel (dyio.getChannel(12)), 10);
+		
 		long longest = 0;
 		long shortest = 1000;
 		// Blink the LED 5 times
@@ -33,10 +37,12 @@ public class HannahsMain {
 				//srv.SetPosition(200, 0);
 				
 				myEncapsulation.setPositionTimed(200, 2000);
+				myEncapsulation2.setPositionTimed(200, 2000);
 			}else{
 				//System.out.println("This loop is even "+i);
 				//srv.SetPosition(50, 0);
 				myEncapsulation.setPositionTimed(50, 0);
+				myEncapsulation2.setPositionTimed(50, 0);
 			}
 			
 			// Set the value high every other time, exit if unsuccessful
