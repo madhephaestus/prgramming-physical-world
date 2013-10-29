@@ -12,7 +12,12 @@ public class ThomasMain {
 			System.exit(1);
 		}
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
-		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		
+		
+		ServoEncapsulation myEncapsulation = 
+				
+				new ServoEncapsulation(new ServoChannel (dyio.getChannel(11)), 10);
 		long longest	= 0;
 		long shortest	= 1000;
 		// Blink the LED 5 times
@@ -22,10 +27,12 @@ public class ThomasMain {
 			long timestamp = System.currentTimeMillis();
 			if(thisLoopIsOdd){
 				//System.out.println("This Loop is odd "+i);
-				srv.SetPosition(200, 0);
-							}else{
+				//srv.SetPosition(200, 0);
+				myEncapsulation.setPositionTimed(200, 2000);
+			}else{
 				//System.out.println("This loop is even "+i);
-				srv.SetPosition(50, 0);
+				//srv.SetPosition(50, 0);
+				myEncapsulation.setPositionTimed(50, 0);
 			}
 			// Set the value high every other time, exit if unsuccessful
 			if(!doc.setHigh(i % 2 == 1)) {
@@ -33,7 +40,7 @@ public class ThomasMain {
 				System.exit(0);
 			}
 			// pause between cycles so that the changes are visible
-			ThreadUtil.wait(1500);
+			
 			long timepassed = System.currentTimeMillis()-timestamp;
 			
 			if(timepassed>longest)
