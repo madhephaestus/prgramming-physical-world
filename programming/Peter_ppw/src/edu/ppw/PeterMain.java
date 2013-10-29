@@ -13,7 +13,11 @@ public class PeterMain {
 			System.exit(1);
 		}
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
-		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		
+		ServoEncapsullation myEncapsulation= new ServoEncapsullation(new ServoChannel (dyio.getChannel(11)), 10);
+		
+		
 		long longest	= 0;
 		long shortest   = 1000;
 		// Blink the LED 5 times
@@ -24,12 +28,16 @@ public class PeterMain {
 			boolean thisLoopIsOdd = (i % 2) == 1;
 			if(thisLoopIsOdd){
 				//System.out.println("this loop is odd"+i);
-				srv.SetPosition(200, 0);
+				//srv.SetPosition(200, 0);
 				
 				//System.out.println("Time for command to run: "+timepassed);
+				
+				myEncapsulation.setPositionTimed(200, 2000);
 			}else{
 				//System.out.println("This line is even"+i);
-				srv.SetPosition(50, 0);
+				//srv.SetPosition(50, 0);
+				
+				myEncapsulation.setPositionTimed(5, 0);
 			}
 			// Set the value high every other time, exit if unsuccessful
 			if(!doc.setHigh(i % 2 == 1)) {
@@ -37,12 +45,7 @@ public class PeterMain {
 				System.exit(0);
 			}
 			// pause between cycles so that the changes are visible
-			try {
-				Thread.sleep(650);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+
 			long timepassed = System.currentTimeMillis() - timestamp;
 			
 			if (timepassed>longest)
