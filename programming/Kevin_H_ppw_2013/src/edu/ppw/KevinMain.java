@@ -38,6 +38,12 @@ public class KevinMain {
 																	 )
 												);
 		
+		ServoWrapper wrapper2 = new ServoWrapper(
+				new ServoChannel (
+									dyio.getChannel(12)
+								 )
+			);
+		
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
 		
 		long startTime;
@@ -49,20 +55,32 @@ public class KevinMain {
 			
 			boolean isThisLoopEven = (i % 2) == 0;
 			
+			EventManager manager = new EventManager();
+			
 			if(isThisLoopEven){
 				//System.out.println("This loop is even " +i);
 				//srv.SetPosition(200, 0);
-				wrapper.setPosition(200,500);
+				
+				wrapper.setPosition(200,2000,manager);
+				wrapper2.setPosition(200,2000,manager);
 				doc.setHigh(isThisLoopEven);
 			}else{
 				//System.out.println("This loop is odd " +i);
 				//srv.SetPosition(50, 0);
-				wrapper.setPosition(50,500);
+				wrapper.setPosition(50,0,manager);
+				wrapper2.setPosition(50,0,manager);
 				doc.setHigh(isThisLoopEven);
 			}
 			
-			//ThreadUtil.wait(250);
-			System.out.println("This loop took " +(System.currentTimeMillis()-startTime)/150+" ms");
+			//new
+			System.out.print("\r\nWaiting.");
+			while(! manager.hasCompletedCycle()){
+				ThreadUtil.wait(100);
+				System.out.print(".");
+			}
+			//new 
+
+			System.out.println("This loop took " +(System.currentTimeMillis()-startTime)/150/2+" ms");
 		}
 		
 		dyio.disconnect();
