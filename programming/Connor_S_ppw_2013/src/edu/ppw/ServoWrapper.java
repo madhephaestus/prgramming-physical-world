@@ -6,7 +6,7 @@ import com.neuronrobotics.sdk.util.ThreadUtil;
 public class ServoWrapper {
 
 	private ServoChannel myChannel;
-
+	private int positionDifference;
 	public ServoWrapper(ServoChannel myChannel){
 		this.myChannel = myChannel;
 		
@@ -14,10 +14,10 @@ public class ServoWrapper {
 	
 	
 	
-	public void setPosition(int position,int time){
+	public void setPosition(int position,int time,final EventManager event){
 		int start = myChannel.getValue();
 		
-		int positionDifference = Math.abs(start-position) * 2;
+		positionDifference = Math.abs(start-position) * 2;
 		
 		myChannel.SetPosition(position, ((double)time)/1000.0) ;
 		
@@ -26,9 +26,17 @@ public class ServoWrapper {
 		}else{
 			System.err.println("I can not move that fast! Needs at least "+positionDifference+" ms");
 		}
+		if(event==null){
+			ThreadUtil.wait(positionDifference);
+		}else{
+			new Thread() {
+				public void run(){
+					ThreadUtil.wait(positionDifference);
+					event.onCompletion(myChannel);
+				}
+			}.start();
 		
-		ThreadUtil.wait(positionDifference);
-		
+		}
 	}
 	
 	
