@@ -16,7 +16,15 @@ public class LucianMain {
 		}
 		DigitalOutputChannel doc = new DigitalOutputChannel(dyio.getChannel(0));
 		
-		ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		//ServoChannel srv = new ServoChannel (dyio.getChannel(11));
+		
+		
+		ServoEncapsulation myEncapsulation = 
+				
+				new ServoEncapsulation(new ServoChannel (dyio.getChannel(11)), 10);
+		
+		
+		
 		long longest	= 0;
 		long shortest	= 1000;
 		// Blink the LED 5 times
@@ -26,7 +34,7 @@ public class LucianMain {
 			
 			if(thisLoopIsOdd){
 //				System.out.println("This loop is odd");
-				srv.SetPosition(200, 0);
+				//srv.SetPosition(200, 0);
 				long timePassed = System.currentTimeMillis()-timestamp; 
 				
 				if(timePassed>longest)
@@ -34,9 +42,12 @@ public class LucianMain {
 				if(timePassed<shortest)
 					shortest=timePassed;
 				System.out.println("Time for command to run: "+timePassed+" longest: "+longest+" shortest: "+shortest);
+				myEncapsulation.setPositionTimed(200, 2000);
 			}else{
+				
+				myEncapsulation.setPositionTimed(50, 0);
 //				System.out.println("This loop is even");
-				srv.SetPosition(50, 0);
+				//srv.SetPosition(50, 0);
 			}
 			
 			// Set the value high every other time, exit if unsuccessful
@@ -45,7 +56,6 @@ public class LucianMain {
 				System.exit(0);
 			}
 			// pause between cycles so that the changes are visible
-			ThreadUtil.wait(300);
 		}
            System.exit(0);
 		
