@@ -4,5 +4,8 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/JavaOpenCVBindingsTest"/>
 	<classpathentry kind="lib" path="/JavaOpenCVBindingsTest/lib/opencv-246.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Kevin_ppw_2013"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/PPW_Java_Library"/>
+	<classpathentry kind="lib" path="/PPW_Java_Library/lib/nrsdk-3.9.1-jar-with-dependencies.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
